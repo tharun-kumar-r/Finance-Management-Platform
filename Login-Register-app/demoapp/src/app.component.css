@@ -1,0 +1,46 @@
+/* Style for the navigation bar */
+.navbar {
+    background-color: slateblue;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .navbar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .navbar ul li {
+    display: inline;
+    margin: 0 15px;
+  }
+  
+  .navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  
+  .navbar a:hover {
+    text-decoration: underline;
+  }
+  
+  .active {
+    font-weight: bold;
+  }
+  
+  /* Main content styling */
+  main {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  /* Footer styling */
+  footer {
+    background-color: #f8f9fa;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #6c757d;
+  }
+  
