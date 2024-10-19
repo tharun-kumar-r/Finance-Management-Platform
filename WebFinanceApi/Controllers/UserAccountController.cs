@@ -35,7 +35,7 @@ namespace WebFinanceApi.Controllers
             var existingUser = _dbcontext.userAccounts.FirstOrDefault(u => u.Email == UserAccountDto.Email);
             if (existingUser != null)
             {
-                return Conflict(new { message = "Email already exists." });
+                return BadRequest(new { message = "Email already exists." });
             }
 
             var lastUser = _dbcontext.userAccounts.OrderByDescending(u => u.Id).FirstOrDefault();
@@ -72,19 +72,18 @@ namespace WebFinanceApi.Controllers
             {
 
 
-                int hash = password.GetHashCode();
 
-
+                string hash = Guid.NewGuid().ToString("N");
                 SessionToken session = new SessionToken
                 {
-                    TokenNo = hash.ToString(),   
-                    AccountNo = existingUser.AccountNo   
+                    TokenNo = hash,
+                    AccountNo = existingUser.AccountNo
                 };
 
                 _dbcontext.SessionTokens.Add(session);
                 _dbcontext.SaveChanges();
                 
-                return Ok(new { message = "Login Success!.", authcode = hash });
+                return Ok(new { message = "Login Success!.", authcode = hash, accountno = existingUser.AccountNo });
 
 
 
@@ -92,7 +91,7 @@ namespace WebFinanceApi.Controllers
             else
             {
 
-                return Conflict(new { message = "Invalid Login Details!." });
+                return BadRequest(new { message = "Invalid Login Details!." });
 
 
             }
@@ -117,7 +116,7 @@ namespace WebFinanceApi.Controllers
             var existingUser = _dbcontext.userAccounts.FirstOrDefault(u => u.AccountNo == userAccountDto.AccountNo);
             if (existingUser == null)
             {
-                return NotFound(new { message = "User not found." });
+                return BadRequest(new { message = "User not found." });
             }
 
 
@@ -129,7 +128,7 @@ namespace WebFinanceApi.Controllers
             var emailConflictUser = _dbcontext.userAccounts.FirstOrDefault(u => u.Email == userAccountDto.Email && u.AccountNo != userAccountDto.AccountNo);
             if (emailConflictUser != null)
             {
-                return Conflict(new { message = "Email already exists for another account." });
+                return BadRequest(new { message = "Email already exists for another account." });
             }
 
 
@@ -170,7 +169,7 @@ namespace WebFinanceApi.Controllers
             var existingUser = _dbcontext.userAccounts.FirstOrDefault(u => u.AccountNo == AccountNo);
             if (existingUser == null)
             {
-                return NotFound(new { message = "User not found." });
+                return BadRequest(new { message = "User not found." });
             }
             else
             {
@@ -181,6 +180,7 @@ namespace WebFinanceApi.Controllers
                     Email = existingUser.Email,
                     Phone = existingUser.Phone,
                     Address = existingUser.Address,
+
                    
                 };
 

@@ -14,7 +14,10 @@ namespace WebFinanceApi
         public DbSet<UserAccount> userAccounts { get; set; }
         public DbSet<SessionToken> SessionTokens { get; set; }
 
+        public DbSet<Transaction> transactions { get; set; }
 
         
+
+
     }
 }
